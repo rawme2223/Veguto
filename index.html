@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تفاعل القطة الممتع</title>
+
+    <link rel="icon" type="image/png" href="icon_meow.png">
+
+    <meta property="og:title" content="تفاعل القطة الممتع">
+    <meta property="og:description" content="اضغط على القطة واستمتع بالصوت والتفاعل!">
+    <meta property="og:image" content="banner_meow.png">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="تفاعل القطة الممتع">
+    <meta name="twitter:image" content="banner_meow.png">
+
     <style>
         body {
             display: flex;
@@ -21,39 +33,32 @@
             text-align: center;
         }
 
-        /* تنسيق الصورة */
         #clickable-img {
             width: 250px;
             cursor: pointer;
-            transition: transform 0.1s ease; /* سرعة استجابة الضغطة */
+            transition: transform 0.1s ease;
             user-select: none;
+            -webkit-tap-highlight-color: transparent; 
+            outline: none;
+            -webkit-touch-callout: none;
         }
 
-        /* أنيميشن الضغط (تصغير بسيط) */
         #clickable-img:active {
             transform: scale(0.9);
         }
 
-        /* تنسيق نص +1 */
         .plus-one {
             position: absolute;
             color: #ff4757;
             font-size: 24px;
             font-weight: bold;
-            pointer-events: none; /* لكي لا تعيق الضغط */
+            pointer-events: none;
             animation: floatUp 0.8s ease-out forwards;
         }
 
-        /* أنيميشن صعود +1 واختفائها */
         @keyframes floatUp {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
         }
     </style>
 </head>
@@ -61,7 +66,6 @@
 
     <div class="container" id="game-container">
         <img src="meow.png" alt="Meow" id="clickable-img">
-        
         <audio id="meow-sound" src="meow.mp3"></audio>
     </div>
 
@@ -71,16 +75,13 @@
         const container = document.getElementById('game-container');
 
         img.addEventListener('click', (e) => {
-            // 1. تشغيل الصوت
-            sound.currentTime = 0; // إعادة الصوت للبداية لو ضغطت بسرعة
+            sound.currentTime = 0;
             sound.play();
 
-            // 2. إنشاء عنصر +1
             const plusOne = document.createElement('div');
             plusOne.innerText = '+1';
             plusOne.className = 'plus-one';
 
-            // تحديد مكان الظهور (فوق الماوس مباشرة)
             const rect = container.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -90,7 +91,6 @@
 
             container.appendChild(plusOne);
 
-            // 3. حذف العنصر بعد انتهاء الأنيميشن لتوفير الذاكرة
             setTimeout(() => {
                 plusOne.remove();
             }, 800);
