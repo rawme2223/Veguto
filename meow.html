@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاعل القطة الممتع</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+        }
+
+        /* تنسيق الصورة */
+        #clickable-img {
+            width: 250px;
+            cursor: pointer;
+            transition: transform 0.1s ease; /* سرعة استجابة الضغطة */
+            user-select: none;
+        }
+
+        /* أنيميشن الضغط (تصغير بسيط) */
+        #clickable-img:active {
+            transform: scale(0.9);
+        }
+
+        /* تنسيق نص +1 */
+        .plus-one {
+            position: absolute;
+            color: #ff4757;
+            font-size: 24px;
+            font-weight: bold;
+            pointer-events: none; /* لكي لا تعيق الضغط */
+            animation: floatUp 0.8s ease-out forwards;
+        }
+
+        /* أنيميشن صعود +1 واختفائها */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="game-container">
+        <img src="meow.png" alt="Meow" id="clickable-img">
+        
+        <audio id="meow-sound" src="meow.mp3"></audio>
+    </div>
+
+    <script>
+        const img = document.getElementById('clickable-img');
+        const sound = document.getElementById('meow-sound');
+        const container = document.getElementById('game-container');
+
+        img.addEventListener('click', (e) => {
+            // 1. تشغيل الصوت
+            sound.currentTime = 0; // إعادة الصوت للبداية لو ضغطت بسرعة
+            sound.play();
+
+            // 2. إنشاء عنصر +1
+            const plusOne = document.createElement('div');
+            plusOne.innerText = '+1';
+            plusOne.className = 'plus-one';
+
+            // تحديد مكان الظهور (فوق الماوس مباشرة)
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            plusOne.style.left = `${x}px`;
+            plusOne.style.top = `${y}px`;
+
+            container.appendChild(plusOne);
+
+            // 3. حذف العنصر بعد انتهاء الأنيميشن لتوفير الذاكرة
+            setTimeout(() => {
+                plusOne.remove();
+            }, 800);
+        });
+    </script>
+
+</body>
+</html>
