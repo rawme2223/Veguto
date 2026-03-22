@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفاعل القطة</title>
+    <title>تفاعل القطة - Meow Game</title>
 
-    <meta property="og:title" content="تفاعل القطة">
-    <meta property="og:description" content="meow!">
-    <meta property="og:image" content="banner_meow.png">
-    <meta property="og:image:width" content="300">
-    <meta property="og:image:height" content="300">
+    <link rel="icon" type="image/png" href="https://veguto.rawme.online/icon_meow.png">
+
+    <meta property="og:title" content="تفاعل القطة - Meow Game">
+    <meta property="og:description" content="meow!.">
+    <meta property="og:image" content="https://veguto.rawme.online/banner_meow.png">
+    <meta property="og:url" content="https://veguto.rawme.online/">
     <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="تفاعل القطة - Meow Game">
+    <meta name="twitter:description" content="لعبة بسيطة وممتعة لمحبي القطط!">
+    <meta name="twitter:image" content="https://veguto.rawme.online/banner_meow.png">
 
     <style>
         body {
@@ -25,14 +31,13 @@
             font-family: sans-serif;
         }
 
-        /* العداد في الأعلى باللون الأحمر - رقم فقط */
+        /* العداد في الأعلى باللون الأحمر */
         #score {
-            font-size: 4rem;
+            font-size: 3rem;
             font-weight: bold;
             color: #ff0000;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             user-select: none;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .container {
@@ -40,7 +45,7 @@
         }
 
         #clickable-img {
-            width: 280px;
+            width: 250px;
             cursor: pointer;
             transition: transform 0.1s ease;
             user-select: none;
@@ -49,23 +54,21 @@
         }
 
         #clickable-img:active {
-            transform: scale(0.85);
+            transform: scale(0.9);
         }
 
-        /* تأثير +1 المتطاير */
         .plus-one {
             position: absolute;
             color: #ff4757;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             pointer-events: none;
-            animation: floatUp 0.7s ease-out forwards;
-            z-index: 100;
+            animation: floatUp 0.8s ease-out forwards;
         }
 
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-120px); opacity: 0; }
+            100% { transform: translateY(-100px); opacity: 0; }
         }
     </style>
 </head>
@@ -84,21 +87,20 @@
         const container = document.getElementById('game-container');
         const scoreDisplay = document.getElementById('score');
 
-        // نظام الحفظ التلقائي باستخدام Local Storage
+        // استرجاع القيمة المخزنة من المتصفح
         let score = parseInt(localStorage.getItem('cat_clicks')) || 0;
         scoreDisplay.innerText = score;
 
         img.addEventListener('click', (e) => {
-            // تشغيل الصوت فوراً عند كل ضغطة
             sound.currentTime = 0;
             sound.play();
 
-            // زيادة العداد وتحديث الشاشة والحفظ
+            // تحديث الرقم
             score++;
             scoreDisplay.innerText = score;
             localStorage.setItem('cat_clicks', score);
 
-            // إنشاء تأثير +1 عند موقع النقر بالضبط
+            // تأثير الـ +1 عند مكان الضغط
             const plusOne = document.createElement('div');
             plusOne.innerText = '+1';
             plusOne.className = 'plus-one';
@@ -112,10 +114,9 @@
 
             container.appendChild(plusOne);
 
-            // إزالة عنصر التأثير بعد انتهاء الأنميشن
             setTimeout(() => {
                 plusOne.remove();
-            }, 700);
+            }, 800);
         });
     </script>
 
