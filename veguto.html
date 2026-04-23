@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veguto - Cats & Apps</title>
+<meta name="description" content="Cats and Interactive Applications">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --background: hsl(0 0% 96%);
+  --foreground: hsl(0 0% 45%);
+  --card: hsl(0 0% 100%);
+  --primary: hsl(0 78% 75%);
+  --primary-fg: hsl(0 0% 100%);
+  --muted-fg: hsl(0 0% 60%);
+  --border: hsl(0 0% 88%);
+  --accent: hsl(0 78% 75%);
+}
+* { margin:0; padding:0; box-sizing:border-box; border-color: var(--border); }
+body { background: var(--background); color: var(--foreground); font-family: 'Quicksand', sans-serif; overflow-x: hidden; }
+h1,h2,h3,h4 { font-family: 'Dancing Script', cursive; }
+
+/* Header */
+header { width:100%; padding:1.5rem 1rem; position:relative; }
+header nav { display:flex; align-items:center; justify-content:center; gap:1rem; font-size:.875rem; color:var(--muted-fg); }
+header nav a { text-decoration:none; color:inherit; transition:color .2s; }
+header nav a:hover { color:var(--primary); }
+.logo { width:3.5rem; height:3.5rem; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; margin:0 1rem; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+.logo span { color:var(--primary-fg); font-family:'Dancing Script',cursive; font-size:1.25rem; font-weight:700; }
+
+/* Hero */
+.hero { text-align:center; padding:3rem 1rem; }
+.hero h1 { font-size:3rem; font-weight:600; }
+.hero p { margin-top:.75rem; font-size:1.125rem; color:var(--muted-fg); }
+
+/* Section Divider */
+.section-divider { width:100%; display:flex; align-items:center; justify-content:center; gap:1rem; margin:3rem 0; }
+.section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.section-divider span { font-family:'Dancing Script',cursive; font-size:1.875rem; padding:0 1.5rem; color:var(--foreground); white-space:nowrap; }
+
+/* iMac Screen Section */
+.works { display: flex; justify-content: center; padding: 1rem; }
+.imac-container { position: relative; width: 100%; max-width: 550px; margin: 0 auto; }
+.imac-frame { width: 100%; height: auto; display: block; position: relative; z-index: 2; }
+.project-screen { 
+    position: absolute; top: 3%; left: 0.9%; width: 98.2%; height: 85.8%; 
+    background: #777; display: flex; align-items: center; justify-content: center; 
+    z-index: 1; overflow: hidden; border-radius: 2px; 
+}
+.preview-text { font-family: 'Quicksand', sans-serif; color: #ccc; font-size: 1.2rem; }
+
+/* --- Interactive Apps Layout --- */
+.apps-section { max-width: 900px; margin: 0 auto; padding: 0 1rem; }
+.apps-grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    min-height: 200px;
+}
+
+.app-card {
+    background: linear-gradient(135deg, hsla(0,78%,75%,.15), hsla(0,78%,75%,.05));
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* تعديل العنوان ليكون بخط طبيعي */
+.app-card h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.app-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.app-icon { 
+    width: 4rem; height: 4rem; border-radius: .75rem; background: var(--card); 
+    border: 1px solid var(--border); display: flex; align-items: center; 
+    justify-content: center; margin: 0 auto 1.25rem; overflow: hidden;
+}
+.app-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Articles Section */
+.carousel-section { padding:2rem 1rem; position: relative; max-width: 1200px; margin: 0 auto; }
+.carousel-container { display: flex; align-items: center; gap: 10px; position: relative; }
+.carousel-wrapper { overflow: hidden; width: 100%; }
+.carousel-grid { display: flex; gap: 1.5rem; transition: transform 0.4s ease-in-out; padding: 1rem 5px; }
+
+.article-card { 
+    flex: 0 0 calc(33.333% - 1rem); min-width: 280px;
+    background: var(--card); border-radius: .75rem; border: 1px solid var(--border); 
+    overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.05); transition: all 0.3s; 
+}
+.article-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); transform: translateY(-4px); }
+.article-body { padding:1.25rem; }
+.article-body .date { font-size:.75rem; color:var(--muted-fg); }
+
+/* General Components */
+.btn { 
+    display:inline-block; margin-top:1rem; background:var(--primary); color:var(--primary-fg); 
+    padding:.5rem 1.5rem; border-radius:9999px; font-size:.875rem; font-weight:600; 
+    border:none; cursor:pointer; text-decoration:none; transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.8; }
+
+footer { padding:3rem 1rem; text-align:center; }
+footer p { color:var(--muted-fg); font-size:.875rem; }
+
+/* Loading Spinner */
+.loader { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+@media(max-width: 768px) { 
+    .apps-grid-container { grid-template-columns: 1fr; }
+    .article-card { flex: 0 0 calc(50% - 1rem); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#apps">Apps</a>
+    <div class="logo"><span>VG</span></div>
+    <a href="#articles">Articles</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Veguto</h1>
+  <p>hello pookies 🌸</p>
+</section>
+
+<div class="section-divider"><span>Play TV</span></div>
+<section id="works" class="works">
+  <div class="imac-container">
+    <img src="pngs/tv.png" alt="iMac" class="imac-frame">
+    <div class="project-screen">
+      <div class="preview-text">Project Preview</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span>Interactive Apps</span></div>
+<section id="apps" class="apps-section">
+    <div class="apps-grid-container" id="appsGrid">
+        <div class="loader"></div>
+    </div>
+</section>
+
+<div class="section-divider"><span>Articles </span></div>
+<section id="articles" class="carousel-section">
+  <div class="carousel-container">
+    <div class="carousel-wrapper">
+      <div class="carousel-grid" id="articlesGrid">
+        <article class="article-card">
+          <div class="article-body">
+            <span class="date">May 12, 2024</span>
+            <h3>Choosing a Cat</h3>
+            <p>Essential tips for picking the perfect cat breed for your lifestyle.</p>
+            <a href="#" style="color:var(--primary); text-decoration:none; font-size:14px;">Read more →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 Veguto.</p>
+</footer>
+
+<script>
+const CONFIG = {
+    jsonFile: "games/data.json", 
+    gamesFolder: "games"        
+};
+
+async function fetchApps() {
+    const grid = document.getElementById('appsGrid');
+    
+    try {
+        const response = await fetch(CONFIG.jsonFile);
+        if (!response.ok) throw new Error("Could not find data.json");
+        
+        const apps = await response.json();
+        grid.innerHTML = ""; 
+
+        if (apps.length === 0) {
+            grid.innerHTML = "<p>لا توجد تطبيقات متاحة حالياً.</p>";
+            return;
+        }
+
+        apps.forEach(app => {
+            const iconSrc = `${CONFIG.gamesFolder}/${app.image}`;
+            const gameLink = `${CONFIG.gamesFolder}/${app.folderName}/index.html`;
+
+            const card = document.createElement('div');
+            card.className = 'app-card';
+            card.innerHTML = `
+                <div class="app-icon">
+                    <img src="${iconSrc}" onerror="this.src='https://via.placeholder.com/100?text=${app.title[0]}'">
+                </div>
+                <h3>${app.title}</h3>
+                <p>${app.description}</p>
+                <a href="${gameLink}" target="_blank" class="btn">Play</a>
+            `;
+            grid.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Error loading apps:", error);
+        grid.innerHTML = `<p style="text-align:center; color:red;">خطأ في تحميل التطبيقات. تأكد من مسار games/data.json</p>`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', fetchApps);
+</script>
+
+</body>
+</html>
