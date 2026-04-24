@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Veguto</title>
+<meta name="description" content="About Veguto - a soft little corner of the internet for cats and cute interactive apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --background: hsl(0 0% 96%);
+  --foreground: hsl(0 0% 45%);
+  --card: hsl(0 0% 100%);
+  --primary: hsl(0 78% 75%);
+  --primary-fg: hsl(0 0% 100%);
+  --muted-fg: hsl(0 0% 60%);
+  --border: hsl(0 0% 88%);
+}
+* { margin:0; padding:0; box-sizing:border-box; border-color: var(--border); }
+body { background: var(--background); color: var(--foreground); font-family: 'Quicksand', sans-serif; overflow-x: hidden; }
+h1,h2,h3,h4 { font-family: 'Dancing Script', cursive; }
+a { text-decoration:none; color:inherit; }
+
+/* Header */
+header { width:100%; padding:1.5rem 1rem; }
+header nav { display:flex; align-items:center; justify-content:center; gap:1rem; font-size:.875rem; color:var(--muted-fg); }
+header nav a { transition:color .2s; }
+header nav a:hover { color:var(--primary); }
+.logo { width:3.5rem; height:3.5rem; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; margin:0 1rem; box-shadow:0 2px 8px rgba(0,0,0,.1); transition: transform .2s; }
+.logo:hover { transform: scale(1.05); }
+.logo span { color:var(--primary-fg); font-family:'Dancing Script',cursive; font-size:1.25rem; font-weight:700; }
+
+/* Hero */
+.hero { text-align:center; padding:3rem 1rem; }
+.hero h1 { font-size:3rem; font-weight:600; color: hsl(0 0% 35%); }
+.hero p { margin-top:.75rem; font-size:1.125rem; color:var(--muted-fg); }
+
+/* Section Divider */
+.section-divider { width:100%; display:flex; align-items:center; justify-content:center; gap:1rem; margin:3rem 0; }
+.section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.section-divider span { font-family:'Dancing Script',cursive; font-size:1.875rem; padding:0 1.5rem; color:var(--foreground); white-space:nowrap; }
+
+/* Main content */
+main { max-width: 42rem; margin: 0 auto; padding: 0 1rem; }
+
+.content-card {
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+.content-card.accent {
+  background: linear-gradient(135deg, hsla(0,78%,75%,.15), hsla(0,78%,75%,.05));
+}
+.content-card p {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: hsl(0 0% 40%);
+}
+
+@media(min-width: 768px) {
+  .content-card { padding: 2.5rem; }
+  .content-card p { font-size: 1.125rem; }
+  .hero h1 { font-size: 3.75rem; }
+}
+
+/* Footer */
+footer { padding:3rem 1rem; text-align:center; }
+footer p { color:var(--muted-fg); font-size:.875rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html" class="logo" aria-label="Veguto home"><span>VG</span></a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>🌸 About Veguto</h1>
+  <p>a soft little corner of the internet</p>
+</section>
+
+<main>
+  <div class="section-divider"><span>What is Veguto?</span></div>
+  <article class="content-card">
+    <p>Veguto is a simple corner of the internet created to be a home for all things cute and wholesome. The main goal of this website is to share the things I create—whether they are small coding experiments or light interactive games—away from the complexity of larger platforms.</p>
+  </article>
+
+  <div class="section-divider"><span>The Content</span></div>
+  <article class="content-card accent">
+    <p>Here, you will find a collection of simple games and projects characterized by a cheerful and gentle spirit. Since cats are the most wonderful and soft creatures, they are the heart of most experiences shared here. Through this humble content, Veguto hopes to succeed in drawing a gentle smile on your face and offering you a few peaceful, happy moments. 🐾</p>
+  </article>
+</main>
+
+<footer>
+  <p>© 2024 Veguto.</p>
+</footer>
+
+</body>
+</html>
