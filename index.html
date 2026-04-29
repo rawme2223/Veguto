@@ -143,8 +143,9 @@ footer p { color:var(--muted-fg); font-size:.875rem; }
 
 <script>
 const CONFIG = {
-    jsonFile: "games/data.json", 
-    gamesFolder: "games"        
+    // These paths are now absolute to work perfectly with Firebase
+    jsonFile: "/games/data.json", 
+    gamesFolder: "/games"        
 };
 
 async function fetchApps() {
@@ -156,7 +157,7 @@ async function fetchApps() {
         
         const apps = await response.json();
         
-        / مسح المحتوى الاحتياطي (SEO Content) واللودر قبل عرض الألعاب الحقيقية
+        // Clear the loader and SEO content
         grid.innerHTML = ""; 
 
         if (apps.length === 0) {
@@ -172,11 +173,11 @@ async function fetchApps() {
             card.className = 'app-card';
             card.innerHTML = `
                 <div class="app-icon">
-                    <img src="/assets/${iconSrc}" onerror="this.src='https://via.placeholder.com/100?text=${app.title[0]}'">
+                    <img src="${iconSrc}" onerror="this.src='https://via.placeholder.com/100?text=${app.title[0]}'">
                 </div>
                 <h3>${app.title}</h3>
                 <p>${app.description}</p>
-                <a href="/assets/${gameLink}" target="_blank" class="btn">Play</a>
+                <a href="${gameLink}" target="_blank" class="btn">Play</a>
             `;
             grid.appendChild(card);
         });
