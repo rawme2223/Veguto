@@ -9,7 +9,7 @@
 
   gtag('config', 'G-7NLKNMVWS4');
 </script>
-<link rel="icon" type="image/x-icon" href="/assets/icon.png">
+<link rel="icon" type="image/x-icon" href="/assets/assets/icon.png">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -108,7 +108,7 @@ footer p { color:var(--muted-fg); font-size:.875rem; }
 <header>
   <nav style="display:flex; align-items:center; justify-content:center; gap:2rem;">
     <div class="logo"><span>VG</span></div>
-    <a href="/assets/about.html" style="text-decoration:none; color:var(--muted-fg); font-size:.875rem; font-weight:500; transition:color .2s;">About</a>
+    <a href="/assets/assets/about.html" style="text-decoration:none; color:var(--muted-fg); font-size:.875rem; font-weight:500; transition:color .2s;">About</a>
   </nav>
 </header>
 
@@ -172,11 +172,11 @@ async function fetchApps() {
             card.className = 'app-card';
             card.innerHTML = `
                 <div class="app-icon">
-                    <img src="/${iconSrc}" onerror="this.src='https://via.placeholder.com/100?text=${app.title[0]}'">
+                    <img src="/assets/${iconSrc}" onerror="this.src='https://via.placeholder.com/100?text=${app.title[0]}'">
                 </div>
                 <h3>${app.title}</h3>
                 <p>${app.description}</p>
-                <a href="/${gameLink}" target="_blank" class="btn">Play</a>
+                <a href="/assets/${gameLink}" target="_blank" class="btn">Play</a>
             `;
             grid.appendChild(card);
         });
