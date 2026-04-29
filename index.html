@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Veguto-Unleash Your Inner Kitten! 🐈🌸</title>
-<meta name="description" content="A variety of fun experiences, cat facts, interactive games, and joyful publications. Don't wait, dive in and try! 🐾✨ :3">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7NLKNMVWS4"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7NLKNMVWS4"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -15,8 +9,13 @@
 
   gtag('config', 'G-7NLKNMVWS4');
 </script>
-  <link rel="icon" type="image/x-icon" href="assets/icon.png">
+<link rel="icon" type="image/x-icon" href="assets/icon.png">
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veguto-Unleash Your Inner Kitten! 🐈🌸</title>
+<meta name="description" content="A variety of fun experiences, cat facts, interactive games, and joyful publications. Don't wait, dive in and try! 🐾✨ :3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -106,10 +105,10 @@ footer p { color:var(--muted-fg); font-size:.875rem; }
 </head>
 <body>
 
-  <header>
+<header>
   <nav style="display:flex; align-items:center; justify-content:center; gap:2rem;">
     <div class="logo"><span>VG</span></div>
-    <a href="/about" style="text-decoration:none; color:var(--muted-fg); font-size:.875rem; font-weight:500; transition:color .2s;">About</a>
+    <a href="assets/about.html" style="text-decoration:none; color:var(--muted-fg); font-size:.875rem; font-weight:500; transition:color .2s;">About</a>
   </nav>
 </header>
 
@@ -123,8 +122,19 @@ footer p { color:var(--muted-fg); font-size:.875rem; }
 
 <section id="apps" class="apps-section">
     <div class="apps-grid-container" id="appsGrid">
-        <div class="loader"></div>
+        
+     <div id="seo-content" style="display: block; width: 100%; text-align: center; grid-column: 1 / -1;">
+    <div style="opacity: 0.6; font-style: italic;">
+        <h2>Veguto Free Online Games</h2>
+        <p>Explore a collection of interactive browser-based games and applications.</p>
+        <ul style="list-style: none; margin-top: 10px;">
+            <li>press to meow</li>
+            </ul>
     </div>
+    <div class="loader"></div>
+</div>
+
+        </div>
 </section>
 
 <footer>
@@ -145,10 +155,12 @@ async function fetchApps() {
         if (!response.ok) throw new Error("Could not find data.json");
         
         const apps = await response.json();
+        
+        // مسح المحتوى الاحتياطي (SEO Content) واللودر قبل عرض الألعاب الحقيقية
         grid.innerHTML = ""; 
 
         if (apps.length === 0) {
-            grid.innerHTML = "<p>لا توجد ألعاب متاحة حالياً.</p>";
+            grid.innerHTML = "<p>There are no games currently available.</p>";
             return;
         }
 
@@ -171,7 +183,7 @@ async function fetchApps() {
 
     } catch (error) {
         console.error("Error loading apps:", error);
-        grid.innerHTML = `<p style="text-align:center; color:red;">خطأ في تحميل الألعاب. تأكد من مسار games/data.json</p>`;
+        grid.innerHTML = `<p style="text-align:center; color:red;">An error occurred on the website. Please reload the site or visit us again later.</p>`;
     }
 }
 
