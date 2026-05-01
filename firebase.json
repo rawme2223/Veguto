@@ -7,6 +7,13 @@
       "**/node_modules/**"
     ],
     "cleanUrls": true,
+    "redirects": [
+      {
+        "source": "/assets/about.html",
+        "destination": "/about",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "/about",
