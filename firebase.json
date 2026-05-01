@@ -1,0 +1,24 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true,
+    "redirects": [
+      {
+        "source": "/assets/about.html",
+        "destination": "/about",
+        "type": 301
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/about",
+        "destination": "/assets/about.html"
+      }
+    ]
+  }
+}
