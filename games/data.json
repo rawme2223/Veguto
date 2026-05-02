@@ -1,17 +1,16 @@
-
 [
   {
     "id": 1,
     "title": "Press to Meow",
     "description": "Tap and collect points from the meow",
-    "folderName": "press to meow",
-    "image": "press to meow/icon.png"
+    "folderName": "press_to_meow",
+    "image": "press_to_meow/icon.png"
   },
   {
     "id": 2,
     "title": "OIIAOIIA CAT",
     "description": "Enjoy the interactive OiiaOiia Cat game! Click to play the spinning cat",
-    "folderName": "oiiai",
-    "image": "oiiai/icon.png"
+    "folderName": "oiiaoiia",
+    "image": "oiiaoiia/icon.png"
   }
 ]
