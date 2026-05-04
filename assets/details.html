@@ -35,7 +35,7 @@
   .brand { display: flex; align-items: center; gap: 12px; transition: opacity 0.2s; }
   .brand:hover { opacity: 0.8; }
   
-  /* عرض الأيقونة بالكامل في الهيدر */
+  /* تنسيق الأيقونة بجانب الاسم في الهيدر */
   .brand img { 
     width: auto; 
     height: 40px; 
@@ -172,8 +172,10 @@
       }
 
       try {
-        // نستخدم ../ للخروج من assets والوصول لمجلد games
+        // الخروج من مجلد assets للوصول لـ games/data.json
         const response = await fetch('../games/data.json');
+        if (!response.ok) throw new Error("File not found");
+        
         const games = await response.json();
         const game = games.find(g => g.folderName === gameFolder);
 
@@ -182,7 +184,7 @@
           document.getElementById('mainTitle').innerText = game.title;
           
           const bannerImg = document.getElementById('gameBanner');
-          // تحديث مسار البانر
+          // مسار البانر الصحيح
           bannerImg.src = `../games/${game.folderName}/banner.png`;
           bannerImg.onerror = () => { document.getElementById('bannerContainer').classList.add('hidden-section'); };
 
@@ -204,7 +206,7 @@
               document.getElementById('tipsArea').innerHTML = tipsContent;
           }
           
-          // عرض النوت إذا كانت موجودة في الـ JSON
+          // عرض Note إذا وجدت
           if(game.Note && game.Note.trim() !== "") {
             document.getElementById('noteArea').innerHTML = `<strong>Note:</strong> ${game.Note}`;
             document.getElementById('noteArea').style.display = 'block';
@@ -219,8 +221,8 @@
           document.getElementById('loading').innerText = "Game not found! 🐱";
         }
       } catch (e) {
-        console.error(e);
-        document.getElementById('loading').innerText = "Error loading data. Make sure data.json is valid.";
+        console.error("Fetch Error:", e);
+        document.getElementById('loading').innerText = "Error loading data. Check your JSON file.";
       }
     }
 
