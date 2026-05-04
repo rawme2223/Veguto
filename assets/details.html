@@ -70,7 +70,7 @@
     margin-top: 16px; border-left: 4px solid var(--primary);
     background: hsl(0 78% 75% / 0.1); padding: 12px 16px;
     border-radius: 0 8px 8px 0; font-size: 14px;
-    display: none; /* يتم إظهارها برمجياً */
+    display: none;
   }
   .note strong { color: var(--primary); font-weight: 600; }
 
@@ -95,7 +95,7 @@
 <body>
   <header class="site">
     <a href="https://veguto.rawme.online/" class="brand">
-        <img src="header.png" alt="Veguto Icon">
+        <img src="/assets/header.png" alt="Veguto Icon">
         <div class="logo">Veguto</div>
     </a>
     <nav>
@@ -192,7 +192,7 @@
           document.getElementById('aboutTitle').innerText = game.title;
           document.getElementById('aboutText').innerText = game.aboutgame || game.description;
           
-          // منطق "How to play"
+          // منطق How to Play
           const howToContent = formatGameText(game["How to play"], true);
           if (!howToContent) {
               document.getElementById('howToPlaySection').classList.add('hidden-section');
@@ -203,7 +203,7 @@
               document.getElementById('howToPlayDivider').classList.remove('hidden-section');
           }
 
-          // منطق "Tips" - إخفاء العنوان والمحتوى فقط دون القسم كاملاً
+          // منطق Tips و Note المنفصل
           const tipsContent = formatGameText(game["Tips"], false);
           const tipsTitle = document.getElementById('tipsTitle');
           const tipsArea = document.getElementById('tipsArea');
@@ -216,7 +216,6 @@
               tipsArea.innerHTML = tipsContent;
           }
           
-          // منطق "Note" - يعمل بشكل مستقل تماماً
           const noteArea = document.getElementById('noteArea');
           if(game.Note && game.Note.trim() !== "") {
             noteArea.innerHTML = `<strong>Note:</strong> ${game.Note}`;
@@ -225,7 +224,7 @@
             noteArea.style.display = 'none';
           }
 
-          // إذا لم يكن هناك نصائح ولا ملاحظة، حينها فقط نخفي القسم بالكامل
+          // التحكم في القسم الجانبي بالكامل
           if (!tipsContent && (!game.Note || game.Note.trim() === "")) {
               document.getElementById('tipsSection').classList.add('hidden-section');
           } else {
