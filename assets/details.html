@@ -185,14 +185,17 @@
           document.getElementById('pageTitle').innerText = `${game.title} — Veguto`;
           document.getElementById('mainTitle').innerText = game.title;
           
+          // جلب البانر من مجلد اللعبة
           const bannerImg = document.getElementById('gameBanner');
           bannerImg.src = `https://veguto.rawme.online/games/${game.folderName}/banner.png`;
-          bannerImg.onerror = () => { document.getElementById('bannerContainer').classList.add('hidden-section'); };
+          // في حال عدم وجود الصورة، يتم إخفاء الحاوية الخاصة بها
+          bannerImg.onerror = () => { 
+            document.getElementById('bannerContainer').classList.add('hidden-section'); 
+          };
 
           document.getElementById('aboutTitle').innerText = game.title;
           document.getElementById('aboutText').innerText = game.aboutgame || game.description;
           
-          // منطق How to Play
           const howToContent = formatGameText(game["How to play"], true);
           if (!howToContent) {
               document.getElementById('howToPlaySection').classList.add('hidden-section');
@@ -203,7 +206,6 @@
               document.getElementById('howToPlayDivider').classList.remove('hidden-section');
           }
 
-          // منطق Tips و Note المنفصل
           const tipsContent = formatGameText(game["Tips"], false);
           const tipsTitle = document.getElementById('tipsTitle');
           const tipsArea = document.getElementById('tipsArea');
@@ -224,7 +226,6 @@
             noteArea.style.display = 'none';
           }
 
-          // التحكم في القسم الجانبي بالكامل
           if (!tipsContent && (!game.Note || game.Note.trim() === "")) {
               document.getElementById('tipsSection').classList.add('hidden-section');
           } else {
