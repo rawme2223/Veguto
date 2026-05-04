@@ -12,6 +12,10 @@
       {
         "source": "/about",
         "destination": "/assets/about.html"
+      },
+      {
+        "source": "/games/*/about",
+        "destination": "/assets/details.html"
       }
     ]
   }
