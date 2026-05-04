@@ -166,16 +166,16 @@ async function fetchApps() {
         apps.forEach(app => {
             const iconSrc = `${CONFIG.gamesFolder}/${app.image}`;
             
-            // رابط اللعبة (لزر Play)
+            // رابط اللعبة المباشر
             const playLink = `https://veguto.rawme.online/games/${app.folderName}/`;
             
-            // التعديل: توجيه البطاقة لصفحة details.html في assets مع اسم اللعبة
-            const aboutLink = `https://veguto.rawme.online/assets/details.html?game=${app.folderName}`;
+            // التعديل المطلوب: توجيه البطاقة إلى رابط /about الخاص باللعبة
+            const aboutLink = `https://veguto.rawme.online/games/${app.folderName}/about`;
 
             const card = document.createElement('div');
             card.className = 'app-card';
             
-            // عند الضغط على البطاقة يذهب لصفحة التفاصيل
+            // عند الضغط على البطاقة يذهب للرابط المخصص للـ About
             card.onclick = function() {
                 window.location.href = aboutLink;
             };
