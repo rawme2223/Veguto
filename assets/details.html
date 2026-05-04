@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title id="pageTitle">Games — Veguto</title>
 <meta name="description" content="Little guides for every kitten game." />
+<link rel="icon" type="image/x-icon" href="/assets/icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -29,9 +30,18 @@
 
   header.site {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 20px 32px; background: var(--card); border-bottom: 1px solid var(--border);
+    padding: 15px 32px; background: var(--card); border-bottom: 1px solid var(--border);
   }
-  header.site .logo { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--primary); }
+  .brand { display: flex; align-items: center; gap: 12px; transition: opacity 0.2s; }
+  .brand:hover { opacity: 0.8; }
+    .brand img { 
+    width: auto;    
+    height: 40px;     
+    border-radius: 0; 
+    object-fit: contain; 
+  }
+  .brand .logo { font-family: 'Dancing Script', cursive; font-size: 28px; color: var(--primary); }
+  
   header.site nav a { margin-left: 24px; font-weight: 500; }
   header.site nav a:hover { color: var(--primary); }
 
@@ -74,6 +84,9 @@
 
   #loading { text-align: center; padding: 100px; font-size: 20px; color: var(--muted-fg); }
 
+  /* لإخفاء الأقسام الفارغة */
+  .hidden-section { display: none !important; }
+
   @media (max-width: 720px) {
     .grid, .columns { grid-template-columns: 1fr; }
     .hero h1 { font-size: 42px; }
@@ -82,10 +95,13 @@
 </head>
 <body>
   <header class="site">
-    <div class="logo">Veguto</div>
+    <a href="https://veguto.rawme.online/" class="brand">
+        <img src="header.png" alt="Veguto Icon">
+        <div class="logo">Veguto</div>
+    </a>
     <nav>
-      <a href="/">Home</a>
-      <a href="/#apps">Games</a>
+      <a href="https://veguto.rawme.online/">Home</a>
+      <a href="https://veguto.rawme.online/#apps">Games</a>
     </nav>
   </header>
 
@@ -94,12 +110,12 @@
       <h1 id="mainTitle">Loading...</h1>
     </section>
 
-    <div class="divider"><span>How to Play</span></div>
+    <div id="howToPlayDivider" class="divider"><span>How to Play</span></div>
 
     <main>
       <article class="game">
         <div class="grid">
-          <div><img id="gameImg" src="" alt="Game Icon" /></div>
+          <div id="bannerContainer"><img id="gameBanner" src="" alt="Game Banner" /></div>
           <div>
             <h2 id="aboutTitle">Title</h2>
             <p id="aboutText">Description...</p>
@@ -107,11 +123,11 @@
         </div>
 
         <div class="columns">
-          <div>
+          <div id="howToPlaySection">
             <h3>How to play</h3>
             <div id="howToPlayArea" class="dynamic-list"></div>
           </div>
-          <div>
+          <div id="tipsSection">
             <h3>Tips</h3>
             <div id="tipsArea" class="dynamic-list"></div>
             <div id="noteArea" class="note"></div>
@@ -125,18 +141,19 @@
 
   <div id="loading">Loading kitten magic... ✨</div>
 
-  <footer style="text-align: center; padding: 20px; color: var(--muted-fg);">© 2024 Veguto.</footer>
+  <footer style="text-align: center; padding: 40px 20px; color: var(--muted-fg);">© 2024 Veguto.</footer>
 
   <script>
     function formatGameText(text, isHowToPlay = false) {
-      if (!text) return "";
+      if (!text || text.trim() === "") return "";
       let lines = text.split('<>');
       return lines.map(line => {
-        let processedLine = line;
+        let processedLine = line.trim();
+        if (!processedLine) return "";
         if (isHowToPlay) {
           processedLine = processedLine.replace(/<\.(\d+)\.\.>/g, '<span class="pink-num">$1.</span> ');
         } else {
-          if (!processedLine.trim().startsWith('🌸')) {
+          if (!processedLine.startsWith('🌸')) {
             processedLine = `<span class="flower-icon">🌸</span> ` + processedLine;
           }
         }
@@ -145,12 +162,10 @@
     }
 
     async function loadGameDetails() {
-      // 1. استخراج اسم اللعبة من المسار الجديد (games/namegame/about)
       const pathName = window.location.pathname;
       const pathParts = pathName.split('/');
-      let gameFolder = pathParts[2]; // الجزء الذي يحتوي على اسم اللعبة
+      let gameFolder = pathParts[2]; 
 
-      // 2. التحقق الاحتياطي من الـ URL Parameter (?game=)
       if (!gameFolder || gameFolder === 'assets' || gameFolder === 'games') {
           const urlParams = new URLSearchParams(window.location.search);
           gameFolder = urlParams.get('game');
@@ -162,10 +177,7 @@
       }
 
       try {
-        // استخدام رابط مطلق لملف JSON لضمان التحميل من أي مسار
         const response = await fetch('https://veguto.rawme.online/games/data.json');
-        if (!response.ok) throw new Error("JSON not found");
-        
         const games = await response.json();
         const game = games.find(g => g.folderName === gameFolder);
 
@@ -173,15 +185,33 @@
           document.getElementById('pageTitle').innerText = `${game.title} — Veguto`;
           document.getElementById('mainTitle').innerText = game.title;
           
-          // استخدام روابط مطلقة للصور والروابط
-          document.getElementById('gameImg').src = `https://veguto.rawme.online/games/${game.image}`;
+          // تحديث البانر - إخفاء إذا لم يوجد
+          const bannerImg = document.getElementById('gameBanner');
+          bannerImg.src = `https://veguto.rawme.online/games/${game.folderName}/banner.png`;
+          bannerImg.onerror = () => { document.getElementById('bannerContainer').classList.add('hidden-section'); };
+
           document.getElementById('aboutTitle').innerText = game.title;
           document.getElementById('aboutText').innerText = game.aboutgame || game.description;
           
-          document.getElementById('howToPlayArea').innerHTML = formatGameText(game["How to play"] || "", true);
-          document.getElementById('tipsArea').innerHTML = formatGameText(game["Tips"] || "", false);
+          // إخفاء "How to play" إذا لم يوجد بيانات
+          const howToContent = formatGameText(game["How to play"], true);
+          if (!howToContent) {
+              document.getElementById('howToPlaySection').classList.add('hidden-section');
+              document.getElementById('howToPlayDivider').classList.add('hidden-section');
+          } else {
+              document.getElementById('howToPlayArea').innerHTML = howToContent;
+          }
+
+          // إخفاء "Tips" إذا لم يوجد بيانات
+          const tipsContent = formatGameText(game["Tips"], false);
+          if (!tipsContent) {
+              document.getElementById('tipsSection').classList.add('hidden-section');
+          } else {
+              document.getElementById('tipsArea').innerHTML = tipsContent;
+          }
           
-          if(game.Note) {
+          // إخفاء "Note" إذا لم يوجد بيانات
+          if(game.Note && game.Note.trim() !== "") {
             document.getElementById('noteArea').innerHTML = `<strong>Note:</strong> ${game.Note}`;
             document.getElementById('noteArea').style.display = 'block';
           }
@@ -195,8 +225,7 @@
           document.getElementById('loading').innerText = "Game not found! 🐱";
         }
       } catch (e) {
-        console.error(e);
-        document.getElementById('loading').innerText = "Error loading data. Make sure data.json is accessible.";
+        document.getElementById('loading').innerText = "Error loading data.";
       }
     }
 
