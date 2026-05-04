@@ -54,8 +54,18 @@
 
   main { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
 
+  /* تعديل هنا لإزالة الإطار والخلفية البيضاء للصورة تماماً */
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
-  .grid img { width: 100%; height: auto; border-radius: 12px; display: block; background: #fff;} 
+  .grid img { 
+    width: 100%; 
+    height: auto; 
+    border-radius: 12px; 
+    border: none !important; /* إزالة أي إطار إجباري */
+    box-shadow: none !important; /* إزالة أي ظلال */
+    display: block; 
+    background: transparent !important; /* جعل الخلفية شفافة */
+  }
+  
   .game h2 { font-size: 36px; margin-bottom: 4px; }
 
   .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
@@ -185,13 +195,9 @@
           document.getElementById('pageTitle').innerText = `${game.title} — Veguto`;
           document.getElementById('mainTitle').innerText = game.title;
           
-          // جلب البانر من مجلد اللعبة
           const bannerImg = document.getElementById('gameBanner');
           bannerImg.src = `https://veguto.rawme.online/games/${game.folderName}/banner.png`;
-          // في حال عدم وجود الصورة، يتم إخفاء الحاوية الخاصة بها
-          bannerImg.onerror = () => { 
-            document.getElementById('bannerContainer').classList.add('hidden-section'); 
-          };
+          bannerImg.onerror = () => { document.getElementById('bannerContainer').classList.add('hidden-section'); };
 
           document.getElementById('aboutTitle').innerText = game.title;
           document.getElementById('aboutText').innerText = game.aboutgame || game.description;
