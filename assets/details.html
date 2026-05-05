@@ -52,9 +52,9 @@
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .divider span { font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--fg); padding: 0 24px; }
 
-  main { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
+  main { max-width: 800px; margin: 0 auto; padding: 0 16px 64px; }
 
-  /* التعديل هنا: جعل العناصر تظهر أسفل بعضها دائماً */
+  /* جعل قسم About عمودي دائماً مثل الهاتف */
   .grid { 
     display: flex; 
     flex-direction: column; 
@@ -65,7 +65,7 @@
 
   .grid img { 
     width: 100%; 
-    max-width: 600px; /* تحديد أقصى عرض للصورة لكي لا تصبح عملاقة */
+    max-width: 500px; 
     height: auto; 
     border-radius: 12px; 
     border: none !important;
@@ -76,11 +76,18 @@
   
   .game h2 { font-size: 36px; margin-bottom: 12px; }
 
-  .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
-  .columns h3 { font-size: 24px; margin-bottom: 12px; }
+  /* جعل قسم القوائم (How to play & Tips) عمودي دائماً */
+  .columns { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 40px; 
+    margin-top: 40px; 
+  }
+  
+  .columns h3 { font-size: 28px; margin-bottom: 16px; text-align: center; }
 
-  .dynamic-list { font-size: 14px; text-align: left; /* الحفاظ على محاذاة القوائم لليسار */ }
-  .dynamic-list div { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+  .dynamic-list { font-size: 15px; }
+  .dynamic-list div { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; text-align: left; }
   .pink-num { color: var(--primary); font-weight: 700; }
   .flower-icon { color: var(--primary); }
 
@@ -95,7 +102,7 @@
   .cta { text-align: center; margin-top: 48px; }
   .pill {
     display: inline-block; background: var(--primary); color: var(--primary-fg);
-    padding: 12px 32px; border-radius: 999px; font-weight: 600; font-size: 16px;
+    padding: 12px 40px; border-radius: 999px; font-weight: 600; font-size: 18px;
     transition: transform .2s, opacity .2s;
   }
   .pill:hover { opacity: 0.9; transform: scale(1.05); }
@@ -104,9 +111,10 @@
 
   .hidden-section { display: none !important; }
 
+  /* تبسيط الميديا كويري لأن التصميم أصبح عمودياً افتراضياً */
   @media (max-width: 720px) {
-    .columns { grid-template-columns: 1fr; }
     .hero h1 { font-size: 42px; }
+    .divider span { font-size: 24px; }
   }
 </style>
 </head>
