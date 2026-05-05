@@ -35,19 +35,14 @@
   }
   .brand { display: flex; align-items: center; gap: 12px; transition: opacity 0.2s; }
   .brand:hover { opacity: 0.8; }
-    .brand img { 
-    width: auto;    
-    height: 40px;     
-    border-radius: 0; 
-    object-fit: contain; 
-  }
+  
   .brand .logo { font-family: 'Dancing Script', cursive; font-size: 28px; color: var(--primary); }
   
   header.site nav a { margin-left: 24px; font-weight: 500; }
   header.site nav a:hover { color: var(--primary); }
 
-  .hero { text-align: center; padding: 48px 16px; }
-  .hero h1 { font-size: 56px; }
+  /* تم تعديل الـ padding لتعويض حذف الـ hero */
+  #gameContent { padding-top: 20px; }
 
   .divider { display: flex; align-items: center; gap: 16px; margin: 48px auto; max-width: 900px; padding: 0 16px; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -55,7 +50,6 @@
 
   main { max-width: 800px; margin: 0 auto; padding: 0 16px 64px; }
 
-  /* جعل قسم About عمودي دائماً مثل الهاتف */
   .grid { 
     display: flex; 
     flex-direction: column; 
@@ -77,7 +71,6 @@
   
   .game h2 { font-size: 36px; margin-bottom: 12px; }
 
-  /* جعل قسم القوائم (How to play & Tips) عمودي دائماً */
   .columns { 
     display: flex; 
     flex-direction: column; 
@@ -112,9 +105,7 @@
 
   .hidden-section { display: none !important; }
 
-  /* تبسيط الميديا كويري لأن التصميم أصبح عمودياً افتراضياً */
   @media (max-width: 720px) {
-    .hero h1 { font-size: 42px; }
     .divider span { font-size: 24px; }
   }
 </style>
@@ -122,7 +113,6 @@
 <body>
   <header class="site">
     <a href="https://veguto.rawme.online/" class="brand">
-        <img src="/assets/header.png" alt="Veguto Icon">
         <div class="logo">Veguto</div>
     </a>
     <nav>
@@ -132,11 +122,7 @@
   </header>
 
   <div id="gameContent" style="display: none;">
-    <section class="hero">
-      <h1 id="mainTitle">Loading...</h1>
-    </section>
-
-    <div id="howToPlayDivider" class="divider"><span>How to Play</span></div>
+    <div id="howToPlayDivider" class="divider"><span>About This Game</span></div>
 
     <main>
       <article class="game">
@@ -166,7 +152,7 @@
     </main>
   </div>
 
-  <div id="loading">Loading kitten magic... ✨</div>
+  <div id="loading">Loading... </div>
 
   <footer style="text-align: center; padding: 40px 20px; color: var(--muted-fg);">© 2024 Veguto.</footer>
 
@@ -210,7 +196,7 @@
 
         if (game) {
           document.getElementById('pageTitle').innerText = `${game.title} — Veguto`;
-          document.getElementById('mainTitle').innerText = game.title;
+          // تم حذف السطر الذي كان يعدل mainTitle لأنه لم يعد موجوداً
           
           const bannerImg = document.getElementById('gameBanner');
           bannerImg.src = `https://veguto.rawme.online/games/${game.folderName}/banner.png`;
@@ -261,7 +247,7 @@
           document.getElementById('gameContent').style.display = 'block';
           document.getElementById('loading').style.display = 'none';
         } else {
-          document.getElementById('loading').innerText = "Game not found! 🐱";
+          document.getElementById('loading').innerText = "Game not found! ";
         }
       } catch (e) {
         document.getElementById('loading').innerText = "Error loading data.";
