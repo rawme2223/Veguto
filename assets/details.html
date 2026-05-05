@@ -54,24 +54,32 @@
 
   main { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
 
-  /* تعديل هنا لإزالة الإطار والخلفية البيضاء للصورة تماماً */
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+  /* التعديل هنا: جعل العناصر تظهر أسفل بعضها دائماً */
+  .grid { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 24px; 
+    align-items: center; 
+    text-align: center; 
+  }
+
   .grid img { 
     width: 100%; 
+    max-width: 600px; /* تحديد أقصى عرض للصورة لكي لا تصبح عملاقة */
     height: auto; 
     border-radius: 12px; 
-    border: none !important; /* إزالة أي إطار إجباري */
-    box-shadow: none !important; /* إزالة أي ظلال */
+    border: none !important;
+    box-shadow: none !important;
     display: block; 
-    background: transparent !important; /* جعل الخلفية شفافة */
+    background: transparent !important;
   }
   
-  .game h2 { font-size: 36px; margin-bottom: 4px; }
+  .game h2 { font-size: 36px; margin-bottom: 12px; }
 
   .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
   .columns h3 { font-size: 24px; margin-bottom: 12px; }
 
-  .dynamic-list { font-size: 14px; }
+  .dynamic-list { font-size: 14px; text-align: left; /* الحفاظ على محاذاة القوائم لليسار */ }
   .dynamic-list div { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
   .pink-num { color: var(--primary); font-weight: 700; }
   .flower-icon { color: var(--primary); }
@@ -80,7 +88,7 @@
     margin-top: 16px; border-left: 4px solid var(--primary);
     background: hsl(0 78% 75% / 0.1); padding: 12px 16px;
     border-radius: 0 8px 8px 0; font-size: 14px;
-    display: none;
+    display: none; text-align: left;
   }
   .note strong { color: var(--primary); font-weight: 600; }
 
@@ -97,7 +105,7 @@
   .hidden-section { display: none !important; }
 
   @media (max-width: 720px) {
-    .grid, .columns { grid-template-columns: 1fr; }
+    .columns { grid-template-columns: 1fr; }
     .hero h1 { font-size: 42px; }
   }
 </style>
