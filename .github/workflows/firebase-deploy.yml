@@ -8,6 +8,63 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # 1. إعداد بيئة بايثون لتشغيل سكربت التحديث
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      # 2. إنشاء وتشغيل السكربت الذي سيحدث الـ Sitemap تلقائياً
+      - name: Auto-update Sitemap
+        run: |
+          python - <<EOF
+          import os
+          from datetime import date
+          
+          sitemap_path = 'sitemap.xml'
+          games_dir = 'games'
+          base_url = 'https://veguto.rawme.online/games/'
+          today = date.today().strftime('%Y-%m-%d')
+          
+          if not os.path.exists(sitemap_path):
+              print("Sitemap file not found!")
+              exit(0)
+          
+          with open(sitemap_path, 'r') as f:
+              lines = f.readlines()
+          
+          existing_locs = [line.split('<loc>')[1].split('</loc>')[0] for line in lines if '<loc>' in line]
+          
+          new_entries = []
+          if os.path.exists(games_dir):
+              for game_name in os.listdir(games_dir):
+                  game_path = os.path.join(games_dir, game_name)
+                  if os.path.isdir(game_path):
+                      url = f"{base_url}{game_name}/about"
+                      if url not in existing_locs:
+                          entry = f"  <url>\n    <loc>{url}</loc>\n    <lastmod>{today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.80</priority>\n  </url>\n"
+                          new_entries.append(entry)
+          
+          if new_entries:
+              lines.insert(-1, "".join(new_entries))
+              with open(sitemap_path, 'w') as f:
+                  f.writelines(lines)
+              print(f"Added {len(new_entries)} new game links.")
+          else:
+              print("No new games to add.")
+          EOF
+
+      # 3. حفظ التعديلات في جيت هوب (عشان الملف يفضل محدث في الـ Repo عندك)
+      - name: Commit Updated Sitemap
+        run: |
+          git config --global user.name 'Sitemap Bot'
+          git config --global user.email 'actions@github.com'
+          git add sitemap.xml
+          git commit -m "chore: auto-update sitemap [skip ci]" || echo "No changes"
+          git push
+
+      # 4. عملية الرفع الأصلية الخاصة بك
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
