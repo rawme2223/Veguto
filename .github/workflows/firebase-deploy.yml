@@ -3,11 +3,17 @@ on:
   push:
     branches:
       - main
+
+# هذا القسم ضروري جداً لإعطاء الروبوت صلاحية تعديل ملف sitemap.xml ورفعه للمستودع
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
       # 1. إعداد بيئة بايثون لتشغيل سكربت التحديث
       - name: Set up Python
@@ -15,7 +21,7 @@ jobs:
         with:
           python-version: '3.x'
 
-      # 2. إنشاء وتشغيل السكربت الذي سيحدث الـ Sitemap تلقائياً
+      # 2. تشغيل السكربت الذي سيحدث الـ Sitemap تلقائياً
       - name: Auto-update Sitemap
         run: |
           python - <<EOF
@@ -34,6 +40,7 @@ jobs:
           with open(sitemap_path, 'r') as f:
               lines = f.readlines()
           
+          # استخراج الروابط الحالية لتجنب التكرار
           existing_locs = [line.split('<loc>')[1].split('</loc>')[0] for line in lines if '<loc>' in line]
           
           new_entries = []
@@ -47,6 +54,7 @@ jobs:
                           new_entries.append(entry)
           
           if new_entries:
+              # إضافة الروابط الجديدة قبل وسم الإغلاق </urlset>
               lines.insert(-1, "".join(new_entries))
               with open(sitemap_path, 'w') as f:
                   f.writelines(lines)
@@ -55,7 +63,7 @@ jobs:
               print("No new games to add.")
           EOF
 
-      # 3. حفظ التعديلات في جيت هوب (عشان الملف يفضل محدث في الـ Repo عندك)
+      # 3. حفظ التعديلات في جيت هوب
       - name: Commit Updated Sitemap
         run: |
           git config --global user.name 'Sitemap Bot'
@@ -64,8 +72,9 @@ jobs:
           git commit -m "chore: auto-update sitemap [skip ci]" || echo "No changes"
           git push
 
-      # 4. عملية الرفع الأصلية الخاصة بك
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      # 4. عملية الرفع إلى Firebase
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VEGUTO_46F0A }}'
